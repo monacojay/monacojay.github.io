@@ -98,6 +98,50 @@
     @media (max-width:540px){
       nav .clock{min-width:unset;max-width:100%}
     }
+    /* --- layout adjustments --- */
+.wrap {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* centers all main sections */
+  text-align: center;
+}
+
+header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 28px;
+  position: relative;
+}
+
+/* Clock placement */
+nav .clock {
+  position: absolute;
+  top: 0;
+  right: 0;
+  transform: translateY(-10px);
+}
+
+/* When the screen is small, let the clock sit full-width on top */
+@media (max-width: 640px) {
+  header {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  nav .clock {
+    position: static;
+    transform: none;
+    margin-top: 10px;
+    width: 100%;
+    max-width: 360px;
+  }
+}
+
   </style>
 </head>
 <body>
