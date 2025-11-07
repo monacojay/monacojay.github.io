@@ -5,29 +5,40 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>monacojay.com</title>
   <style>
-    /* ===== Base site styles (stable) ===== */
     :root { --bg:#0f1115; --card:#151821; --text:#e9edf1; --muted:#a7b0be; --accent:#7bd389; }
     *{box-sizing:border-box} html,body{margin:0;height:100%}
     body{font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial,sans-serif;background:var(--bg);color:var(--text);}
     .wrap{max-width:880px;margin:0 auto;padding:40px 20px}
 
-    /* ===== Header layout: left column (name+links) / right column (clock) ===== */
+    /* ===== Header: centered left/right ===== */
     header{
       display:flex;
-      justify-content:space-between;  /* left vs right */
-      align-items:flex-start;         /* top-align */
+      justify-content:center;    /* centers both sides together */
+      align-items:center;
+      gap:80px;                  /* space between name+nav and clock */
       margin-bottom:28px;
-      gap:20px;
+      flex-wrap:wrap;
     }
-    .navcol{display:flex;flex-direction:column;align-items:flex-start}
-    .mono{font-family: ui-monospace,SFMono-Regular,Menlo,monospace}
-    header .mono{font-size:28px;font-weight:700;letter-spacing:.5px}
 
-    nav{display:flex;gap:24px;align-items:center;margin-top:6px;flex-wrap:wrap}
+    .navcol{
+      display:flex;
+      flex-direction:column;
+      align-items:center;        /* center name and links together */
+    }
+
+    .mono{
+      font-family: ui-monospace,SFMono-Regular,Menlo,monospace;
+      font-size:28px;
+      font-weight:700;
+      letter-spacing:.5px;
+      margin-bottom:6px;
+    }
+
+    nav{display:flex;gap:24px;align-items:center;flex-wrap:wrap;justify-content:center}
     nav a{color:var(--muted);text-decoration:none}
     nav a:hover{color:var(--text)}
 
-    /* ===== Clock (right side) ===== */
+    /* ===== Clock ===== */
     header .clock{
       display:inline-flex;flex-direction:column;align-items:stretch;gap:8px;
       padding:10px 12px;background:#121520;border:1px solid #232838;border-radius:14px;
@@ -56,9 +67,8 @@
     .card h3{margin:0 0 6px;font-size:18px}
     footer{margin:36px 0 12px;color:var(--muted);font-size:14px;text-align:center}
 
-    /* ===== Mobile ===== */
     @media (max-width:540px){
-      header{flex-direction:column}
+      header{flex-direction:column;gap:20px}
       header .clock{width:100%;max-width:100%}
     }
   </style>
@@ -75,7 +85,6 @@
         </nav>
       </div>
 
-      <!-- Clock on the right -->
       <div id="backclock" class="clock" aria-label="End of Days Clock">
         <div class="title">
           End of Days Clock
@@ -103,11 +112,6 @@
         </ul>
       </section>
 
-      <section id="apps" class="card">
-        <h3>Apps</h3>
-        <p>More widgets coming soon.</p>
-      </section>
-
       <section id="contact" class="card">
         <h3>Contact</h3>
         <p>Email: <a href="mailto:monacojay@gmail.com">monacojay@gmail.com</a></p>
@@ -118,19 +122,15 @@
   </div>
 
   <script>
-    // footer year
     document.getElementById('y').textContent = new Date().getFullYear();
-
-    // Backwards clock
     (function(){
       const root = document.getElementById('backclock');
       if(!root) return;
       const digits = root.querySelector('.digits');
-
       function timeLeftNowMs(){
         const now = new Date();
         const tomorrow = new Date(now);
-        tomorrow.setHours(24,0,0,0); // midnight next day
+        tomorrow.setHours(24,0,0,0);
         return Math.max(0, tomorrow - now);
       }
       function fmt(ms){
