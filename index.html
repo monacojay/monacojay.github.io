@@ -5,65 +5,88 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>monacojay.com</title>
   <style>
-    :root {
-      --max: 820px;
-      --bg: #ffffff; --fg: #111; --muted: #666; --line: #eaeaea;
-      --card: #fff; --shadow: 0 1px 3px rgba(0,0,0,.04);
-    }
-    @media (prefers-color-scheme: dark) {
-      :root { --bg:#0e0f12; --fg:#e9e9ee; --muted:#a1a1ad; --line:#1b1c20; --card:#121318; --shadow:none; }
-    }
-    * { box-sizing: border-box; }
-    html,body { margin:0; padding:0; background:var(--bg); color:var(--fg);
-      font: 16px/1.6 system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; }
-    header { padding: 64px 20px 40px; text-align:center; border-bottom:1px solid var(--line); }
-    h1 { margin: 0 0 10px; font-size: clamp(28px, 4vw, 40px); letter-spacing:-0.02em; }
-    p.lead { margin:0; font-size: clamp(16px, 2vw, 18px); color: var(--muted); }
-    nav { margin-top:14px; display:flex; gap:14px; justify-content:center; flex-wrap:wrap; }
-    nav a { text-decoration:none; color:inherit; border-bottom:1px dashed currentColor; opacity:.85; }
-    nav a:hover { opacity:1; }
+    /* === End of Days Clock Widget === */
+  nav .clock{
+    display:inline-flex;
+    flex-direction:column;
+    align-items:stretch;
+    gap:8px;
+    margin-left:18px;
+    padding:10px 12px;
+    background:#121520;
+    border:1px solid #232838;
+    border-radius:14px;
+    box-shadow:0 4px 14px rgba(0,0,0,.25);
+    min-width:260px;
+    max-width:360px;
+  }
   
-    main { max-width: var(--max); margin: 32px auto; padding: 0 20px; display: grid; gap:16px; }
-    .card { background:var(--card); border:1px solid var(--line); border-radius:14px; padding:18px; box-shadow: var(--shadow); }
-    .card h3 { margin:0 0 6px; font-size:20px; letter-spacing:-0.01em; }
-    .card ul { margin:8px 0 0; padding-left:18px; }
-    a { color: inherit; }
-    footer { text-align:center; color:var(--muted); padding:28px 20px; border-top:1px solid var(--line); }
-    /* Backwards clock widget */
-    nav .clock{display:inline-flex;align-items:center;gap:8px;margin-left:18px;
-      background:#121520;border:1px solid #232838;border-radius:12px;padding:6px 10px}
-    .clock .digits{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
-      font-size:18px;letter-spacing:1px;background:#0b0f16;border:1px solid #1f2431;
-      border-radius:8px;padding:6px 10px;min-width:120px;text-align:center}
-    /* .clock .label{color:var(--muted);font-size:12px} */
-    /* Bigger, bannered clock */
+  .clock .title{
+    font-weight:700;
+    font-size:12px;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    padding:6px 8px 4px;
+    border-radius:8px;
+    background:#0b0f16;
+    border:1px solid #1f2431;
+    color:var(--muted);
+    text-align:center;
+    position:relative;
+  }
+  
+  .clock .title::after{
+    content:"";
+    display:block;
+    width:60%;
+    height:1px;
+    margin:4px auto 0;
+    background:linear-gradient(90deg,transparent,#2a2f3a,transparent);
+    opacity:.6;
+  }
+  
+  .clock .subtitle{
+    font-size:10px;
+    text-transform:none;
+    letter-spacing:0;
+    color:var(--muted);
+    opacity:.8;
+    margin-top:2px;
+  }
+  
+  .clock .clock-row{
+    display:flex;
+    justify-content:center;
+  }
+  
+  .clock .digits{
+    font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+    font-size:36px;
+    letter-spacing:1.5px;
+    background:#0b0f16;
+    border:1px solid #1f2431;
+    border-radius:10px;
+    padding:10px 14px;
+    min-width:160px;
+    text-align:center;
+    color:var(--text);
+  }
+  
+  .clock .caption{
+    color:var(--muted);
+    font-size:11px;
+    line-height:1.35;
+    text-align:center;
+    padding:0 4px;
+  }
+  
+  @media (max-width:540px){
     nav .clock{
-      display:inline-flex; flex-direction:column; align-items:stretch;
-      gap:8px; margin-left:18px; padding:10px 12px;
-      background:#121520; border:1px solid #232838; border-radius:14px;
-      box-shadow: 0 4px 14px rgba(0,0,0,.25);
-      min-width: 260px; max-width: 360px;
+      min-width:unset;
+      max-width:100%;
     }
-    .clock .title{
-      font-weight:700; font-size:12px; letter-spacing:.12em; text-transform:uppercase;
-      padding:6px 8px; border-radius:8px;
-      background:#0b0f16; border:1px solid #1f2431; color:var(--muted); text-align:center;
-    }
-    .clock .clock-row{justify-content:space-between}
-    .clock .digits{
-      font-family: ui-monospace,SFMono-Regular,Menlo,monospace;
-      font-size:24px; letter-spacing:1px;
-      background:#0b0f16; border:1px solid #1f2431; border-radius:10px;
-      padding:8px 12px; min-width:140px; text-align:center;
-    }
-    .clock .label{color:var(--muted); font-size:12px; align-self:center; margin-left:8px}
-    .clock .caption{
-      color:var(--muted); font-size:11px; line-height:1.35; text-align:center;
-      padding:0 4px;
-    }
-    @media (max-width:540px){
-      nav .clock{min-width:unset; max-width:100%}
-    }
+  }
+
 
   </style>
 </head>
@@ -75,12 +98,16 @@
       <a href="#projects">Projects</a>
       <a href="#contact">Contact</a>
       <div id="backclock" class="clock" aria-label="End of Days Clock">
-      <div class="title">End of Days Clock</div>
-        <div class="row clock-row">
-        <span class="digits">--:--:--</span>
-        </div>
-        <div class="caption">There’s no such thing as future or past, there is only this moment, and it is slowly slipping away…</div>
+      <div class="title">
+        End of Days Clock
+        <div class="subtitle">(resets at midnight)</div>
       </div>
+      <div class="row clock-row">
+        <span class="digits">--:--:--</span>
+      </div>
+      <div class="caption">There’s no such thing as future or past, there is only this moment, and it is slowly slipping away…</div>
+    </div>
+
 
 
 
