@@ -5,18 +5,30 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>monacojay.com</title>
   <style>
-    :root { --max: 820px; }
-    html,body { margin:0; padding:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; }
-    header { padding: 56px 20px; text-align:center; border-bottom:1px solid #eee; }
-    h1 { margin: 0 0 8px; font-size: 34px; }
-    p.lead { margin: 0; font-size: 18px; color:#555; }
-    main { max-width: var(--max); margin: 32px auto; padding: 0 20px; }
-    .card { border:1px solid #eee; border-radius:14px; padding:18px; margin:14px 0; }
-    .card h3 { margin:0 0 6px; }
-    footer { text-align:center; color:#777; padding:28px 20px; border-top:1px solid #eee; }
+    :root {
+      --max: 820px;
+      --bg: #ffffff; --fg: #111; --muted: #666; --line: #eaeaea;
+      --card: #fff; --shadow: 0 1px 3px rgba(0,0,0,.04);
+    }
+    @media (prefers-color-scheme: dark) {
+      :root { --bg:#0e0f12; --fg:#e9e9ee; --muted:#a1a1ad; --line:#1b1c20; --card:#121318; --shadow:none; }
+    }
+    * { box-sizing: border-box; }
+    html,body { margin:0; padding:0; background:var(--bg); color:var(--fg);
+      font: 16px/1.6 system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; }
+    header { padding: 64px 20px 40px; text-align:center; border-bottom:1px solid var(--line); }
+    h1 { margin: 0 0 10px; font-size: clamp(28px, 4vw, 40px); letter-spacing:-0.02em; }
+    p.lead { margin:0; font-size: clamp(16px, 2vw, 18px); color: var(--muted); }
+    nav { margin-top:14px; display:flex; gap:14px; justify-content:center; flex-wrap:wrap; }
+    nav a { text-decoration:none; color:inherit; border-bottom:1px dashed currentColor; opacity:.85; }
+    nav a:hover { opacity:1; }
+  
+    main { max-width: var(--max); margin: 32px auto; padding: 0 20px; display: grid; gap:16px; }
+    .card { background:var(--card); border:1px solid var(--line); border-radius:14px; padding:18px; box-shadow: var(--shadow); }
+    .card h3 { margin:0 0 6px; font-size:20px; letter-spacing:-0.01em; }
+    .card ul { margin:8px 0 0; padding-left:18px; }
     a { color: inherit; }
-    nav { margin-top:12px; }
-    nav a { margin:0 8px; text-decoration:none; border-bottom:1px dashed #888; }
+    footer { text-align:center; color:var(--muted); padding:28px 20px; border-top:1px solid var(--line); }
   </style>
 </head>
 <body>
