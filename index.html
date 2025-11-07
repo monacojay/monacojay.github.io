@@ -5,109 +5,87 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>monacojay.com</title>
   <style>
-  /* ===== Base site styles (stable) ===== */
+    /* ===== Base site styles (stable) ===== */
     :root { --bg:#0f1115; --card:#151821; --text:#e9edf1; --muted:#a7b0be; --accent:#7bd389; }
     *{box-sizing:border-box} html,body{margin:0;height:100%}
     body{font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial,sans-serif;background:var(--bg);color:var(--text);}
     .wrap{max-width:880px;margin:0 auto;padding:40px 20px}
 
+    /* ===== Header layout: left column (name+links) / right column (clock) ===== */
     header{
       display:flex;
-      flex-direction:column;     /* stack items vertically */
-      align-items:flex-start;    /* align to the left edge */
+      justify-content:space-between;  /* left vs right */
+      align-items:flex-start;         /* top-align */
       margin-bottom:28px;
+      gap:20px;
     }
+    .navcol{display:flex;flex-direction:column;align-items:flex-start}
     .mono{font-family: ui-monospace,SFMono-Regular,Menlo,monospace}
-    header .mono {
-      font-size: 28px;     /* make your name bigger */
-      font-weight: 700;    /* bold */
-      letter-spacing: 0.5px;
-    }
-    nav {
-      margin-top: 6px;  /* small space between name and nav links */
-    }
-    nav{display:flex;align-items:center}
-    nav a{color:var(--muted);text-decoration:none;margin-left:18px}
+    header .mono{font-size:28px;font-weight:700;letter-spacing:.5px}
+
+    nav{display:flex;gap:24px;align-items:center;margin-top:6px;flex-wrap:wrap}
+    nav a{color:var(--muted);text-decoration:none}
     nav a:hover{color:var(--text)}
 
-    .card{background:var(--card);border:1px solid #1f2431;border-radius:16px;padding:18px;margin-top:16px}
-    .card h3{margin:0 0 6px;font-size:18px}
-    .muted{color:var(--muted)}
-    footer{margin:36px 0 12px;color:var(--muted);font-size:14px;text-align:center}
-
-    button,input{font:inherit}
-    .btn{display:inline-block;border:1px solid #2b3344;background:#1a1f2b;color:var(--text);padding:10px 14px;border-radius:12px;cursor:pointer}
-    .btn:hover{border-color:#3a445a}
-    .row{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:10px}
-    .inp{background:#0e121a;border:1px solid #232838;border-radius:10px;color:var(--text);padding:10px;width:110px}
-    a.link{color:var(--accent);text-decoration:none}
-
-    /* Lists inside cards */
-    .card ul{margin:8px 0 0 18px; padding:0}
-    .card li{margin:4px 0}
-
-    /* ===== End of Days Clock (inline in nav) ===== */
-    nav .clock{
-      display:inline-flex; flex-direction:column; align-items:stretch; gap:8px;
-      margin-left:18px; padding:10px 12px;
-      background:#121520; border:1px solid #232838; border-radius:14px;
-      box-shadow:0 4px 14px rgba(0,0,0,.25);
-      min-width:260px; max-width:360px;
+    /* ===== Clock (right side) ===== */
+    header .clock{
+      display:inline-flex;flex-direction:column;align-items:stretch;gap:8px;
+      padding:10px 12px;background:#121520;border:1px solid #232838;border-radius:14px;
+      box-shadow:0 4px 14px rgba(0,0,0,.25);min-width:260px;max-width:360px;
     }
     .clock .title{
-      font-weight:700; font-size:12px; letter-spacing:.12em; text-transform:uppercase;
-      padding:6px 8px 4px; border-radius:8px;
-      background:#0b0f16; border:1px solid #1f2431; color:var(--muted);
-      text-align:center; position:relative;
+      font-weight:700;font-size:12px;letter-spacing:.12em;text-transform:uppercase;
+      padding:6px 8px 4px;border-radius:8px;background:#0b0f16;border:1px solid #1f2431;
+      color:var(--muted);text-align:center;position:relative;
     }
     .clock .title::after{
-      content:""; display:block; width:60%; height:1px; margin:4px auto 0;
-      background:linear-gradient(90deg,transparent,#2a2f3a,transparent); opacity:.6;
+      content:"";display:block;width:60%;height:1px;margin:4px auto 0;
+      background:linear-gradient(90deg,transparent,#2a2f3a,transparent);opacity:.6;
     }
-    .clock .subtitle{
-      font-size:10px; text-transform:none; letter-spacing:0; color:var(--muted);
-      opacity:.8; margin-top:2px;
-    }
+    .clock .subtitle{font-size:10px;text-transform:none;letter-spacing:0;color:var(--muted);opacity:.8;margin-top:2px}
     .clock .clock-row{display:flex;justify-content:center}
     .clock .digits{
       font-family: ui-monospace,SFMono-Regular,Menlo,monospace;
-      font-size:36px; letter-spacing:1.5px;
-      background:#0b0f16; border:1px solid #1f2431; border-radius:10px;
-      padding:10px 14px; min-width:160px; text-align:center; color:var(--text);
+      font-size:36px;letter-spacing:1.5px;background:#0b0f16;border:1px solid #1f2431;border-radius:10px;
+      padding:10px 14px;min-width:160px;text-align:center;color:var(--text);
     }
-    .clock .caption{
-      color:var(--muted); font-size:11px; line-height:1.35; text-align:center; padding:0 4px;
-    }
+    .clock .caption{color:var(--muted);font-size:11px;line-height:1.35;text-align:center;padding:0 4px}
 
-    /* Mobile tweak: keep layout tidy */
+    /* ===== Cards & footer ===== */
+    .card{background:var(--card);border:1px solid #1f2431;border-radius:16px;padding:18px;margin-top:16px}
+    .card h3{margin:0 0 6px;font-size:18px}
+    footer{margin:36px 0 12px;color:var(--muted);font-size:14px;text-align:center}
+
+    /* ===== Mobile ===== */
     @media (max-width:540px){
-      nav{flex-wrap:wrap; gap:10px}
-      nav .clock{min-width:unset; max-width:100%}
-      .card{text-align:left}
+      header{flex-direction:column}
+      header .clock{width:100%;max-width:100%}
     }
   </style>
 </head>
 <body>
   <div class="wrap">
     <header>
-      <strong class="mono">Jared Monaco</strong>
-      <nav>
-        <a href="#projects">Projects</a>
-        <a href="#apps">Apps</a>
-        <a href="#contact">Contact</a>
+      <div class="navcol">
+        <strong class="mono">Jared Monaco</strong>
+        <nav>
+          <a href="#projects">Projects</a>
+          <a href="#apps">Apps</a>
+          <a href="#contact">Contact</a>
+        </nav>
+      </div>
 
-        <!-- Clock lives here, inline with nav (stable) -->
-        <div id="backclock" class="clock" aria-label="End of Days Clock">
-          <div class="title">
-            End of Days Clock
-            <div class="subtitle">(resets at midnight)</div>
-          </div>
-          <div class="row clock-row">
-            <span class="digits">--:--:--</span>
-          </div>
-          <div class="caption">There’s no such thing as the future or the past, there is only this moment, and it is slowly slipping away…</div>
+      <!-- Clock on the right -->
+      <div id="backclock" class="clock" aria-label="End of Days Clock">
+        <div class="title">
+          End of Days Clock
+          <div class="subtitle">(resets at midnight)</div>
         </div>
-      </nav>
+        <div class="row clock-row">
+          <span class="digits">--:--:--</span>
+        </div>
+        <div class="caption">There’s no such thing as future or the past, there is only this moment, and it is slowly slipping away…</div>
+      </div>
     </header>
 
     <main>
@@ -125,6 +103,11 @@
         </ul>
       </section>
 
+      <section id="apps" class="card">
+        <h3>Apps</h3>
+        <p>More widgets coming soon.</p>
+      </section>
+
       <section id="contact" class="card">
         <h3>Contact</h3>
         <p>Email: <a href="mailto:monacojay@gmail.com">monacojay@gmail.com</a></p>
@@ -135,8 +118,10 @@
   </div>
 
   <script>
+    // footer year
     document.getElementById('y').textContent = new Date().getFullYear();
 
+    // Backwards clock
     (function(){
       const root = document.getElementById('backclock');
       if(!root) return;
@@ -145,8 +130,7 @@
       function timeLeftNowMs(){
         const now = new Date();
         const tomorrow = new Date(now);
-        // midnight next day
-        tomorrow.setHours(24,0,0,0);
+        tomorrow.setHours(24,0,0,0); // midnight next day
         return Math.max(0, tomorrow - now);
       }
       function fmt(ms){
@@ -155,13 +139,11 @@
         let h = Math.floor(total/3600);
         let m = Math.floor((total%3600)/60);
         let s = total%60;
-        // special case: exactly at midnight show 24:00:00
         if (total === 24*3600){ h = 24; m = 0; s = 0; }
         return `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
       }
       function tick(){
         digits.textContent = fmt(timeLeftNowMs());
-        // schedule on the next whole second to avoid drift
         const delay = 1000 - (Date.now() % 1000);
         setTimeout(tick, delay);
       }
