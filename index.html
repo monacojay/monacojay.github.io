@@ -29,6 +29,14 @@
     .card ul { margin:8px 0 0; padding-left:18px; }
     a { color: inherit; }
     footer { text-align:center; color:var(--muted); padding:28px 20px; border-top:1px solid var(--line); }
+    /* Backwards clock widget */
+    nav .clock{display:inline-flex;align-items:center;gap:8px;margin-left:18px;
+      background:#121520;border:1px solid #232838;border-radius:12px;padding:6px 10px}
+    .clock .digits{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+      font-size:18px;letter-spacing:1px;background:#0b0f16;border:1px solid #1f2431;
+      border-radius:8px;padding:6px 10px;min-width:120px;text-align:center}
+    .clock .label{color:var(--muted);font-size:12px}
+
   </style>
 </head>
 <body>
@@ -38,6 +46,11 @@
       <a href="#about">About</a>
       <a href="#projects">Projects</a>
       <a href="#contact">Contact</a>
+      <div id="backclock" class="clock">
+        <span class="digits">--:--:--</span>
+        <span class="label">left today</span>
+      </div>
+
     </nav>
   </header>
 
@@ -66,5 +79,37 @@
     © <span id="y"></span> Jared Monaco
   </footer>
   <script>document.getElementById('y').textContent = new Date().getFullYear()</script>
+  <script>
+    (function(){
+      const root = document.getElementById('backclock');
+      if(!root) return;
+      const digits = root.querySelector('.digits');
+  
+      function timeLeftNowMs(){
+        const now = new Date();
+        const tomorrow = new Date(now);
+        // midnight next day
+        tomorrow.setHours(24,0,0,0);
+        return Math.max(0, tomorrow - now);
+      }
+      function fmt(ms){
+        let total = Math.floor(ms/1000);
+        if (total < 0) total = 0;
+        let h = Math.floor(total/3600);
+        let m = Math.floor((total%3600)/60);
+        let s = total%60;
+        // special case: exactly at midnight show 24:00:00
+        if (total === 24*3600){ h = 24; m = 0; s = 0; }
+        return `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+      }
+      function tick(){
+        digits.textContent = fmt(timeLeftNowMs());
+        // schedule on the next whole second to avoid drift
+        const delay = 1000 - (Date.now() % 1000);
+        setTimeout(tick, delay);
+      }
+      tick();
+      })();
+</script>
 </body>
 </html>
