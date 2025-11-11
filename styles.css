@@ -144,12 +144,18 @@ footer{
 .completed-project { margin-bottom: 14px; }
 .completed-project:last-child { margin-bottom: 0; }
 
-.project-link {
+a.project-link,
+a.project-link:visited {
   color: var(--accent);
+  filter: brightness(1.3);      /* brightens without changing hue */
   font-weight: 600;
+  text-decoration: none;
+}
+
+a.project-link:hover {
+  filter: brightness(1.6);
   text-decoration: underline;
 }
-.project-link:hover { text-decoration: none; }
 
 .project-desc {
   display: inline-block;
