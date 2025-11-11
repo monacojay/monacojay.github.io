@@ -140,6 +140,45 @@ footer{
   text-align:center;
 }
 
+/* ===== Completed Projects: links + descriptions ===== */
+.completed-project { margin-bottom: 14px; }
+.completed-project:last-child { margin-bottom: 0; }
+
+a.project-link,
+a.project-link:visited {
+  color: var(--accent);
+  filter: brightness(1.3);      /* brightens without changing hue */
+  font-weight: 600;
+  text-decoration: none;
+}
+
+a.project-link:hover {
+  filter: brightness(1.6);
+  text-decoration: underline;
+}
+
+.project-desc {
+  display: inline-block;
+  margin-top: 4px;
+  font-style: italic;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+/* ===== Contact Link Styling ===== */
+#contact a,
+#contact a:visited {
+  color: #9ef3a3;              /* same light green as project links */
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+#contact a:hover {
+  color: #b6ffc2;              /* gentle glow on hover */
+  text-decoration: underline;
+}
+
 @media (max-width:540px){
   header{flex-direction:column;gap:20px}
   header .clock{width:100%;max-width:100%}
