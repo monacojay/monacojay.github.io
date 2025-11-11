@@ -140,6 +140,25 @@ footer{
   text-align:center;
 }
 
+/* ===== Completed Projects: links + descriptions ===== */
+.completed-project { margin-bottom: 14px; }
+.completed-project:last-child { margin-bottom: 0; }
+
+.project-link {
+  color: var(--accent);
+  font-weight: 600;
+  text-decoration: underline;
+}
+.project-link:hover { text-decoration: none; }
+
+.project-desc {
+  display: inline-block;
+  margin-top: 4px;
+  font-style: italic;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
 @media (max-width:540px){
   header{flex-direction:column;gap:20px}
   header .clock{width:100%;max-width:100%}
