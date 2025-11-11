@@ -165,6 +165,20 @@ a.project-link:hover {
   line-height: 1.5;
 }
 
+/* ===== Contact Link Styling ===== */
+#contact a,
+#contact a:visited {
+  color: #9ef3a3;              /* same light green as project links */
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+#contact a:hover {
+  color: #b6ffc2;              /* gentle glow on hover */
+  text-decoration: underline;
+}
+
 @media (max-width:540px){
   header{flex-direction:column;gap:20px}
   header .clock{width:100%;max-width:100%}
